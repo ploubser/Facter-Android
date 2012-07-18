@@ -4,13 +4,13 @@
 #include <string.h>
 #include <dirent.h>
 
+/* TODO : Fix this hackity hack */
+
 #define PREFIX  "libc"
 #define POSTFIX  ".so"
 #define PREFIXL  4
 #define POSTFIXL 3
 
-/* TODO : Fix this hackity hack
- */
 
 void clean(char *fact, char *factname)
 {
@@ -52,7 +52,7 @@ void call_plugin(char *lib_file, char *result, char *plugin_name)
 int main(int argc, char *argv[])
 {
     char result[BUFSIZ];
-    char lib_file[] = "/home/psy/facter-android/plugins/libc";
+    char lib_file[] = "/home/psy/Facter-Android/plugins/libc";
 
     if(argc > 1)
     {
@@ -68,14 +68,14 @@ int main(int argc, char *argv[])
     {
         DIR *plugin_dir;
         struct dirent *ent;
-        char plugin_dir_string[BUFSIZ] = "/home/psy/facter-android/plugins/";
+        char plugin_dir_string[BUFSIZ] = "/home/psy/Facter-Android/plugins/";
         char file[BUFSIZ];
         char fact[BUFSIZ];
         plugin_dir = opendir(plugin_dir_string);
 
         if(plugin_dir != NULL)
         {
-            while ((ent = readdir(plugin_dir)) != NULL) 
+            while ((ent = readdir(plugin_dir)) != NULL)
             {
                 if( (strcmp(ent->d_name, ".") != 0) && (strcmp(ent->d_name, "..")) )
                 {
