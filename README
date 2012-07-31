@@ -1,4 +1,1 @@
 Musings of a C implementation of Facter, allowing facts plugins to be writting in C, C++, LUA and Ruby.
-
-Direct benifits of a C implementation are speed, size and platform versatility which will allow us to
-run facter and eventually puppet on ARM systems.
