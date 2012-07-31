@@ -5,6 +5,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void get_fact(char *);
+int get_fact(char *);
 
 #endif
