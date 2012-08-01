@@ -2,7 +2,6 @@
 
 _fact* lookup(char *fact)
 {
-
   FILE *file;
   char filepath[BUFSIZ];
   void* result = NULL;
@@ -20,6 +19,14 @@ _fact* lookup(char *fact)
 
       if((file = fopen(filepath, "r")))
         result = lookup_ruby(fact, filepath);
+      else
+      {
+        sprintf(filepath, "%s%s.lua", PLUGIN_PATH, fact);
+        if((file = fopen(filepath, "r")))
+        {
+          result = lookup_lua(fact, filepath);
+        }
+      }
   }
 
   if(file)
@@ -86,8 +93,50 @@ void* lookup_ruby(char *fact, char *filepath)
 
   f->name = fact;
   f->value = lookup_result;
+  ruby_finalize();
 
   return f;
 }
 
-void* lookup_lua(char *fact, char *filepath);
+void* lookup_lua(char *fact, char *filepath)
+{
+  lua_State *state;
+  char * result;
+  _fact *f;
+
+  state = lua_open();
+
+  luaL_openlibs(state);
+  luaL_dofile(state, filepath);
+
+  lua_getglobal(state, "get_fact");
+
+  if(lua_type(state, -1) != LUA_TFUNCTION)
+  {
+    lua_pop(state, 1);
+    lua_close(state);
+    return NULL;
+  }
+
+  lua_pcall(state, 0, 1, 0);
+  result = lua_tostring(state, 1);
+
+  if(result)
+  {
+    f = malloc(sizeof(_fact));
+    f->name = fact;
+    f->value = result;
+  }
+  else
+  {
+    lua_pop(state, 1);
+    lua_close(state);
+    return NULL;
+  }
+
+  lua_pop(state, 1);
+  lua_close(state);
+
+  return f;
+
+}

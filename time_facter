@@ -1,0 +1,8 @@
+time for i in {1..10}
+do
+  facter kernel
+  facter uptime
+  facter hostnme
+  facter operatingsystem
+  facter timezone 
+done

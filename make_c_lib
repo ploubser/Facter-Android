@@ -1,3 +1,5 @@
+#!/usr/bin/ruby
+
 target = ARGV[0]
 
 `gcc -Wall -fPIC -c src/facts/#{target}.c`

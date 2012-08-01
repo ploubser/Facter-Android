@@ -6,7 +6,14 @@
 #include <string.h>
 #include <dirent.h>
 #include <dlfcn.h>
+
+//IFDEF RUBY
 #include <ruby.h>
+
+//IFDEF LUA
+#include <lua.h>
+#include <lauxlib.h>
+#include <lualib.h>
 
 #define SUCCESS 1
 #define FAILURE 0
@@ -30,8 +37,7 @@ typedef struct _fact
 /* Facter lookup definitions
  * Lookups are defined on a per language basis
  *
- * TODO: Ruby
- *       LUA
+ * TODO: LUA
  */
 
 _fact* lookup(char*);

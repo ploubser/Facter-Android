@@ -1,0 +1,8 @@
+time for i in {1..10}
+do
+  ./facterc kernel
+  ./facterc uptime
+  ./facterc hostnme
+  ./facterc operatingsystem
+  ./facterc timezone 
+done
