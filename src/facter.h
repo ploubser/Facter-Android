@@ -7,21 +7,21 @@
 #include <dirent.h>
 #include <dlfcn.h>
 
-//IFDEF RUBY
+#ifdef W_RUBY
 #include <ruby.h>
+void* lookup_ruby(char*, char*);
+#endif
 
-//IFDEF LUA
+#ifdef W_LUA
 #include <lua.h>
 #include <lauxlib.h>
 #include <lualib.h>
+void* lookup_lua(char*, char*);
+#endif
 
 #define SUCCESS 1
 #define FAILURE 0
 
-#define C_PREAMBLE "libc"
-#define C_POSTAMBLE ".so"
-#define RUBY_POSTAMBLE ".rb"
-#define LUA_POSTAMBLE ".lua"
 #define PLUGIN_PATH "/home/psy/Facter-Android/plugins/"
 
 typedef struct _fact
@@ -36,12 +36,12 @@ typedef struct _fact
 
 /* Facter lookup definitions
  * Lookups are defined on a per language basis
- *
- * TODO: LUA
  */
 
+void fact_list(char [100][BUFSIZ], int*);
+void* lookup_all(char [100][BUFSIZ]);
+_fact** facter_to_hash(int*);
 _fact* lookup(char*);
+
 void* lookup_c(char*, char*);
-void* lookup_ruby(char*, char*);
-void* lookup_lua(char*, char*);
 #endif
